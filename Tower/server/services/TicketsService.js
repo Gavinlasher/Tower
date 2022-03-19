@@ -32,6 +32,8 @@ class TicketsService {
     if (TicketRemove.creatorId.toString() !== body.creatorId) {
       throw new BadRequest('not you ticket')
     }
+    TicketRemove.capacity++
+    await TicketRemove.save()
     await dbContext.Tickets.findByIdAndDelete(body.id)
     return 'deleted'
   }
