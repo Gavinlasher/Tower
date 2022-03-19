@@ -21,5 +21,10 @@ class EventsSevices {
     AppState.events = [AppState.events, ...res.data]
 
   }
+  async getActiveEvent(id) {
+    const res = await api.get('api/events' + id)
+    logger.log(res.data)
+    AppState.ActiveEvent = res.data
+  }
 }
 export const eventsService = new EventsSevices()

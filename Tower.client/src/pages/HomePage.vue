@@ -27,7 +27,12 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-3" v-for="e in events" :key="e.id">
+      <div
+        class="col-md-3 selectable"
+        v-for="e in events"
+        :key="e.id"
+        @click="goTo(e.id)"
+      >
         <Events :events="e" />
       </div>
     </div>
@@ -40,9 +45,11 @@ import { logger } from "../utils/Logger"
 import Pop from "../utils/Pop"
 import { eventsService } from '../services/EventsService'
 import { AppState } from "../AppState"
+import { useRouter } from "vue-router"
 export default {
   name: 'Home',
   setup() {
+    const router = useRouter()
     watchEffect(async () => {
       try {
         await eventsService.getAll()
@@ -52,6 +59,18 @@ export default {
       }
     })
     return {
+      async goTo(id) {
+        try {
+          await eventsService.getActiveEvent(id)
+          router.push({
+            name: 'Event',
+            params: { id: AppState.ActiveEvent.id }
+          })
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error.message, 'error message')
+        }
+      },
       async getAll() {
         try {
           await eventsService.getAll()
