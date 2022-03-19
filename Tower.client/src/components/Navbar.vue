@@ -1,10 +1,16 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="../assets/img/cw-logo.png" height="45" />
-      </div>
+      <h2>T<i class="mdi mdi-snapchat"></i>wer</h2>
     </router-link>
+    <button
+      type="button"
+      class="btn btn-dark text-light"
+      data-bs-toggle="modal"
+      data-bs-target="#create-event"
+    >
+      Create Event
+    </button>
     <button
       class="navbar-toggler"
       type="button"
@@ -18,18 +24,15 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
-        <li>
-          <router-link
-            :to="{ name: 'About' }"
-            class="btn text-success lighten-30 selectable text-uppercase"
-          >
-            About
-          </router-link>
-        </li>
+        <li></li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
       <Login />
     </div>
+    <Modal id="create-event">
+      <template #title> Create Event</template>
+      <template #body><CreateEvent /></template>
+    </Modal>
   </nav>
 </template>
 
@@ -52,5 +55,14 @@ a:hover {
   border-bottom: 2px solid var(--bs-success);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+h2 {
+  color: rgb(214, 195, 85);
+}
+i {
+  background-color: hsla(0, 0%, 100%, 0.507);
+  border-radius: 50%;
+  height: 5vh;
+  width: 5vh;
 }
 </style>
