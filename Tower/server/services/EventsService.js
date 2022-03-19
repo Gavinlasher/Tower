@@ -34,6 +34,10 @@ class EventsService {
   }
 
   async create(body) {
+    // const todayDate = new Date().toDateString
+    // if (body.startDate <= todayDate) {
+    //   throw new BadRequest('Has to be a date in the furture!')
+    // }
     const towerEvent = await dbContext.TowerEvents.create(body)
     return towerEvent
   }
