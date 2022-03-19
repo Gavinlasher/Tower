@@ -11,6 +11,6 @@ export const CommentSchma = new Schema({
 CommentSchma.virtual('creator', {
   localField: 'creatorId',
   foreignField: '_id',
-  ref: 'Profile',
+  ref: 'Account',
   justOne: true
 })
