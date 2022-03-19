@@ -34,10 +34,10 @@ class EventsService {
   }
 
   async create(body) {
-    const todayDate = new Date().toLocaleString
-    if (body.startDate.toString() <= todayDate) {
-      throw new BadRequest('Has to be a date in the furture!')
-    }
+    // const todayDate = new Date()
+    // if (body.startDate < todayDate.toDateString()) {
+    //   throw new BadRequest('Has to be a date in the furture!')
+    // }
     const towerEvent = await dbContext.TowerEvents.create(body)
     return towerEvent
   }
