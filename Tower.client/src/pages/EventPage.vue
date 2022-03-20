@@ -12,7 +12,9 @@
           {{ events.capacity }}
           <span class="ms-2"> Spots Left</span>
         </h3>
-        <button class="btn btn-light ms-5">Attend</button>
+        <button class="btn btn-light ms-5" @click="createTicket(events.id)">
+          Attend
+        </button>
       </div>
     </div>
   </div>
@@ -30,6 +32,7 @@ import { logger } from "../utils/Logger"
 import Pop from "../utils/Pop"
 import { eventsService } from "../services/EventsService"
 import { AppState } from "../AppState"
+import { ticketsService } from '../services/TicketsService'
 export default {
   setup() {
     const route = useRoute()
@@ -44,6 +47,14 @@ export default {
       }
     })
     return {
+      async createTicket(id) {
+        try {
+          await ticketsService.createTicket(id, AppState.account.id)
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error.message, 'error message')
+        }
+      },
       events: computed(() => AppState.ActiveEvent),
       account: computed(() => AppState.account),
       coverImg: computed(() => `url('${AppState.ActiveEvent.coverImg}')`)
