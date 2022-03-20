@@ -103,6 +103,7 @@ export default {
   background-image: v-bind(coverImg);
   background-size: cover;
   background-position: center;
+  backdrop-filter: blur(50px);
 }
 img {
   height: 50vh;

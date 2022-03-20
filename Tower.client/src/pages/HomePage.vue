@@ -28,7 +28,7 @@
     </div>
     <div class="row">
       <div
-        class="col-md-3 selectable"
+        class="col-md-3 selectable events mt-3 p-3"
         v-for="e in events"
         :key="e.id"
         @click="goTo(e.id)"
@@ -102,5 +102,14 @@ export default {
 }
 h3 {
   padding: 1rem;
+}
+.events {
+  transition: all 0.12s ease;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+}
+.events:hover {
+  transform: scale(1.05);
+  outline: 1px solid var(--bs-light);
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
 }
 </style>
