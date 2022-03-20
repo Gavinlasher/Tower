@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
+    <router-link class="navbar-brand d-flex selectable" :to="{ name: 'Home' }">
       <h2>T<i class="mdi mdi-snapchat"></i>wer</h2>
     </router-link>
     <button
@@ -57,12 +57,14 @@ a:hover {
   border-bottom-right-radius: 0;
 }
 h2 {
-  color: rgb(214, 195, 85);
+  font-size: 35px;
+  background: -webkit-linear-gradient(45deg, #f8facc, #edfa35);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 i {
-  background-color: hsla(0, 0%, 100%, 0.507);
+  /* background: linear-gradient(45deg, #f8facc, #edfa35); */
   border-radius: 50%;
-  height: 5vh;
-  width: 5vh;
+  border: 1px 1px rgb(197, 196, 196);
 }
 </style>

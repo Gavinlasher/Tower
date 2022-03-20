@@ -9,9 +9,13 @@
     <h6 class="text-end" v-if="!events.isCanceled">
       <span class="me-3"> Spots left {{ events.capacity }}</span>
     </h6>
-    <div class="bg-danger" v-if="events.isCanceled"><h6>Canceled</h6></div>
+    <div class="bg-danger" v-if="events.isCanceled">
+      <h4 class="text-center">Canceled</h4>
+    </div>
 
-    <div class="bg-danger" v-if="events.capacity <= 0"><h6>SoldOut</h6></div>
+    <div class="bg-danger" v-if="events.capacity <= 0">
+      <h4 class="text-center">SoldOut</h4>
+    </div>
   </div>
 </template>
 

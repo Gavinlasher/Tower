@@ -1,5 +1,5 @@
 <template>
-  <header class="border">
+  <header class="">
     <Navbar />
   </header>
   <main class="bg-dark">
