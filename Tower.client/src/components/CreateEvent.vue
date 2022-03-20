@@ -66,15 +66,21 @@ import { eventsService } from "../services/EventsService"
 import { logger } from "../utils/Logger"
 import Pop from "../utils/Pop"
 import { Modal } from "bootstrap"
+import { useRouter } from "vue-router"
+import { AppState } from "../AppState"
 export default {
   setup() {
     const editable = ref({})
+    const router = useRouter()
     return {
       editable,
       async createEvent() {
         try {
           await eventsService.createEvent(editable.value)
-
+          router.push({
+            name: 'Event',
+            params: { id: AppState.ActiveEvent.id }
+          })
           Modal.getOrCreateInstance(
             document.getElementById("create-event")
           ).hide();

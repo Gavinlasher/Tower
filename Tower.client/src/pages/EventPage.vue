@@ -4,6 +4,21 @@
       <img class="img-fluid m-3 border shadow" :src="events.coverImg" alt="" />
     </div>
     <div class="col-md-8 p-5 read-text">
+      <div
+        class="d-flex justify-content-end"
+        v-if="account.id == events.creatorId"
+      >
+        <button class="btn btn-danger me-3" @click="cancelEvent(events.id)">
+          Cancel Event
+        </button>
+        <button
+          class="btn btn-warning"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasExample"
+        >
+          Edit Details
+        </button>
+      </div>
       <h3 class="text-start text-light">{{ events.name }}</h3>
       <h3 class="text-start text-light">{{ events.location }}</h3>
       <h6 class="text-light text-start">{{ events.description }}</h6>
@@ -24,6 +39,7 @@
       <Tickets :ticket="t" />
     </div>
   </div>
+  <OffCanvas id="offcanvasExample" />
 </template>
 
 
@@ -63,6 +79,15 @@ export default {
           Pop.toast(error.message, 'error message')
         }
       },
+      async cancelEvent(id) {
+        try {
+          await eventsService.cancel(id)
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error.message, "error message")
+        }
+      }
+      ,
       events: computed(() => AppState.ActiveEvent),
       account: computed(() => AppState.account),
       coverImg: computed(() => `url('${AppState.ActiveEvent.coverImg}')`),
