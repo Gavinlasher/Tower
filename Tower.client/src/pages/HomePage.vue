@@ -19,10 +19,10 @@
           <h3 class="selectable" @click="filterEvents('convention')">
             Convention
           </h3>
-          <h3 class="selectable" @click="filterEvents('exhibits')">Exhibits</h3>
+          <h3 class="selectable" @click="filterEvents('exhibit')">Exhibits</h3>
           <h3 class="selectable" @click="filterEvents('sport')">Sports</h3>
           <h3 class="selectable" @click="filterEvents('digital')">Digital</h3>
-          <h3 class="selectable" @click="filterEvents('concerts')">Concerts</h3>
+          <h3 class="selectable" @click="filterEvents('concert')">Concerts</h3>
         </div>
       </div>
     </div>

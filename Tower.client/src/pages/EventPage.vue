@@ -20,7 +20,9 @@
   </div>
   <h2 class="ms-4">See Whos is attending</h2>
   <div class="row m-4">
-    <div class="col-md-12 bg-secondary">img of ticket holder</div>
+    <div class="col-md-12 bg-secondary p-3" v-for="t in ticket" :key="t.id">
+      <Tickets :ticket="t" />
+    </div>
   </div>
 </template>
 
@@ -35,11 +37,13 @@ import { AppState } from "../AppState"
 import { ticketsService } from '../services/TicketsService'
 export default {
   setup() {
+
     const route = useRoute()
     watchEffect(async () => {
       try {
         if (route.name = 'Event') {
           await eventsService.getActiveEvent(route.params.id)
+          await ticketsService.getAllTickets(route.params.id)
         }
       } catch (error) {
         logger.error(error)
@@ -49,7 +53,11 @@ export default {
     return {
       async createTicket(id) {
         try {
-          await ticketsService.createTicket(id, AppState.account.id)
+          let newTicket = {
+            accountId: AppState.account.id,
+            eventId: AppState.ActiveEvent.id,
+          }
+          await ticketsService.createTicket(newTicket)
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error message')
@@ -57,7 +65,8 @@ export default {
       },
       events: computed(() => AppState.ActiveEvent),
       account: computed(() => AppState.account),
-      coverImg: computed(() => `url('${AppState.ActiveEvent.coverImg}')`)
+      coverImg: computed(() => `url('${AppState.ActiveEvent.coverImg}')`),
+      ticket: computed(() => AppState.ticket)
     }
   }
 }
@@ -76,5 +85,10 @@ img {
 }
 .read-text {
   text-shadow: 2px 1px black;
+}
+.pp {
+  height: 10vh;
+  width: 10vh;
+  border-radius: 50%;
 }
 </style>
