@@ -31,5 +31,10 @@ class EventsSevices {
     const res = await api.delete('api/events/' + id)
     logger.log(res.data)
   }
+  async edit(id, body) {
+    const res = await api.put('api/events/' + id, body)
+    logger.log(res.data)
+    AppState.ActiveEvent = res.data
+  }
 }
 export const eventsService = new EventsSevices()

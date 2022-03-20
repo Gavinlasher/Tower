@@ -6,7 +6,7 @@
     <div class="col-md-8 p-5 read-text">
       <div
         class="d-flex justify-content-end"
-        v-if="account.id == events.creatorId"
+        v-if="account.id == events.creatorId && !events.isCanceled"
       >
         <button class="btn btn-danger me-3" @click="cancelEvent(events.id)">
           Cancel Event
@@ -34,8 +34,8 @@
     </div>
   </div>
   <h2 class="ms-4">See Whos is attending</h2>
-  <div class="row m-4">
-    <div class="col-md-12 bg-secondary p-3" v-for="t in ticket" :key="t.id">
+  <div class="row m-4 bg-secondary">
+    <div class="col-md-1 p-3" v-for="t in ticket" :key="t.id">
       <Tickets :ticket="t" />
     </div>
   </div>

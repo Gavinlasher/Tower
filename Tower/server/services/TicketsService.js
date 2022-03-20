@@ -4,7 +4,7 @@ import { BadRequest } from '../utils/Errors'
 
 class TicketsService {
   async getAllTickets(query) {
-    const tickets = await dbContext.Tickets.find(query).populate('account')
+    const tickets = await dbContext.Tickets.find(query).populate('account').populate('event')
     return tickets
   }
 
