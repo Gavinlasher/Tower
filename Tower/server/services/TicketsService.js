@@ -9,7 +9,7 @@ class TicketsService {
   }
 
   async getTickets(query) {
-    const eventTicket = await dbContext.Tickets.find(query).populate('account')
+    const eventTicket = await dbContext.Tickets.find(query).populate('event')
     return eventTicket
   }
 
@@ -29,7 +29,7 @@ class TicketsService {
 
   async remove(body) {
     const TicketRemove = await dbContext.Tickets.findById(body.id)
-    if (TicketRemove.creatorId.toString() !== body.creatorId) {
+    if (TicketRemove.accountId.toString() !== body.creatorId) {
       throw new BadRequest('not you ticket')
     }
     TicketRemove.capacity++
