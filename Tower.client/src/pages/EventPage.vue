@@ -28,7 +28,11 @@
           <span class="ms-2"> Spots Left</span>
         </h3>
         <button
-          v-if="events.capacity > 0 && !events.isCanceled"
+          v-if="
+            events.capacity > 0 &&
+            !events.isCanceled &&
+            myTicket.eventId !== events.id
+          "
           class="btn btn-light ms-5"
           @click="createTicket(events.id)"
         >
@@ -57,13 +61,14 @@ import { AppState } from "../AppState"
 import { ticketsService } from '../services/TicketsService'
 export default {
   setup() {
-
+    let capacity = AppState.events.capacity
     const route = useRoute()
     watchEffect(async () => {
       try {
         if (route.name = 'Event') {
           await eventsService.getActiveEvent(route.params.id)
           await ticketsService.getAllTickets(route.params.id)
+
         }
       } catch (error) {
         logger.error(error)
@@ -77,7 +82,9 @@ export default {
             accountId: AppState.account.id,
             eventId: AppState.ActiveEvent.id,
           }
+          capacity -= 1
           await ticketsService.createTicket(newTicket)
+
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error message')
@@ -95,7 +102,9 @@ export default {
       events: computed(() => AppState.ActiveEvent),
       account: computed(() => AppState.account),
       coverImg: computed(() => `url('${AppState.ActiveEvent.coverImg}')`),
-      ticket: computed(() => AppState.ticket)
+      ticket: computed(() => AppState.ticket),
+      capacity: computed(() => AppState.events),
+      myTicket: computed(() => AppState.myTickets)
     }
   }
 }
