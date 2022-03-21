@@ -27,7 +27,11 @@
           {{ events.capacity }}
           <span class="ms-2"> Spots Left</span>
         </h3>
-        <button class="btn btn-light ms-5" @click="createTicket(events.id)">
+        <button
+          v-if="events.capacity > 0 && !events.isCanceled"
+          class="btn btn-light ms-5"
+          @click="createTicket(events.id)"
+        >
           Attend
         </button>
       </div>
