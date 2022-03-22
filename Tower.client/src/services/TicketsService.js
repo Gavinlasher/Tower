@@ -13,7 +13,7 @@ class TicketsService {
   }
   async getAllTickets(id) {
     const res = await api.get('api/events/' + id + '/tickets')
-
+    logger.log(res.data)
     AppState.ticket = res.data
   }
   async remove(id) {

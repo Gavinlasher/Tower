@@ -33,11 +33,7 @@
             <span class="ms-2"> Spots Left</span>
           </h3>
           <button
-            v-if="
-              events.capacity > 0 &&
-              !events.isCanceled &&
-              myTicket.eventId !== events.id
-            "
+            v-if="events.capacity > 0 && !events.isCanceled && !haveTicket"
             class="btn btn-light ms-5"
             @click="createTicket(events.id)"
           >
@@ -94,21 +90,22 @@ export default {
 
     const route = useRoute()
     const editable = ref({})
+    if (AppState.ActiveEvent.id == AppState.ActiveEvent.id) {
 
+      watchEffect(async () => {
+        try {
+          if (route.name = 'Event') {
+            await eventsService.getActiveEvent(route.params.id)
+            await ticketsService.getAllTickets(route.params.id)
+            await notesService.getAllNotes(route.params.id)
 
-    watchEffect(async () => {
-      try {
-        if (route.name = 'Event') {
-          await eventsService.getActiveEvent(route.params.id)
-          await ticketsService.getAllTickets(route.params.id)
-          await notesService.getAllNotes(route.params.id)
-
+          }
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error.message, 'error message')
         }
-      } catch (error) {
-        logger.error(error)
-        Pop.toast(error.message, 'error message')
-      }
-    })
+      })
+    }
 
     return {
       editable,
@@ -150,7 +147,7 @@ export default {
       coverImg: computed(() => `url('${AppState.ActiveEvent.coverImg}')`),
       ticket: computed(() => AppState.ticket),
       capacity: computed(() => AppState.events),
-      myTicket: computed(() => AppState.myTickets),
+      haveTicket: computed(() => AppState.ticket.find(t => t.eventId == AppState.ActiveEvent.id)),
       notes: computed(() => AppState.notes)
     }
   }
