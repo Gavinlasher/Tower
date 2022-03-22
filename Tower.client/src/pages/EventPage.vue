@@ -29,6 +29,7 @@
         <h6 class="text-light text-start">{{ events.description }}</h6>
         <div class="d-flex justify-content-between mt-5">
           <h3>
+            {{ events.startDate }}
             {{ events.capacity }}
             <span class="ms-2"> Spots Left</span>
           </h3>

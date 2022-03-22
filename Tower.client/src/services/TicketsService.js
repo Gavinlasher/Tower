@@ -8,6 +8,7 @@ class TicketsService {
 
     const newTicket = { ...res.data, name: res.data.account.name, picture: res.data.account.picture }
     AppState.ticket.push(newTicket)
+    AppState.myTickets.push(newTicket)
     AppState.ActiveEvent.capacity--
 
   }
