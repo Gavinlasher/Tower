@@ -5,7 +5,7 @@ import { api } from "./AxiosService"
 class TicketsService {
   async createTicket(ticketData) {
     const res = await api.post('api/tickets', ticketData)
-    logger.log(res.data)
+
     const newTicket = { ...res.data, name: res.data.account.name, picture: res.data.account.picture }
     AppState.ticket.push(newTicket)
     AppState.ActiveEvent.capacity--
@@ -13,12 +13,12 @@ class TicketsService {
   }
   async getAllTickets(id) {
     const res = await api.get('api/events/' + id + '/tickets')
-    logger.log(res.data)
+
     AppState.ticket = res.data
   }
   async remove(id) {
     const res = await api.delete('api/tickets/' + id)
-    logger.log(res.data)
+
     AppState.myTickets = AppState.myTickets.filter(t => t.id != id)
     AppState.ActiveEvent.capacity++
   }

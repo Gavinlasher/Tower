@@ -35,7 +35,8 @@ export default {
       account: computed(() => AppState.account),
       async remove(id) {
         try {
-          await notesService.remove(id)
+          if (await Pop.confirm())
+            await notesService.remove(id)
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, ' error message')

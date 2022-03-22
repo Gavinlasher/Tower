@@ -13,7 +13,7 @@ class AccountService {
   }
   async getMyTickets() {
     const res = await api.get('/account/tickets')
-    logger.log(res.data)
+
     AppState.myTickets = res.data
   }
 }

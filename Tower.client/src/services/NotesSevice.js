@@ -5,7 +5,7 @@ import { api } from "./AxiosService"
 class NotesService {
   async createNote(body) {
     const res = await api.post('api/comments', body)
-    logger.log(res.data)
+
     AppState.notes = [...AppState.notes, res.data]
   }
   async getAllNotes(id) {

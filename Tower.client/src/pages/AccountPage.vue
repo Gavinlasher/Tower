@@ -46,7 +46,8 @@ export default {
       myTicket: computed(() => AppState.myTickets),
       async removeTicket(id) {
         try {
-          await ticketsService.remove(id)
+          if (await Pop.confirm())
+            await ticketsService.remove(id)
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'message error')

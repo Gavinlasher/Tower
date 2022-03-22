@@ -55,12 +55,12 @@
     <h4 class="m-4 text-center">What people are saying....</h4>
     <div class="row justify-content-center">
       <div class="col-md-8 text-center">
-        <div class="form-group row justify-content-center">
+        <div class="form-group justify-content-center">
           <h3 class="col-12 text-center">Write a Comment</h3>
           <form @submit.prevent="createNote">
             <textarea
               v-model="editable.body"
-              class="form-control m-4 col-12"
+              class="form-control m-0 col-12"
               id="exampleFormControlTextarea1"
               rows="3"
             ></textarea>
@@ -91,9 +91,11 @@ import { ticketsService } from '../services/TicketsService'
 import { notesService } from '../services/NotesSevice'
 export default {
   setup() {
-    let capacity = AppState.events.capacity
+
     const route = useRoute()
     const editable = ref({})
+
+
     watchEffect(async () => {
       try {
         if (route.name = 'Event') {
@@ -107,6 +109,7 @@ export default {
         Pop.toast(error.message, 'error message')
       }
     })
+
     return {
       editable,
       async createNote() {
@@ -124,7 +127,7 @@ export default {
             accountId: AppState.account.id,
             eventId: AppState.ActiveEvent.id,
           }
-          capacity -= 1
+
           await ticketsService.createTicket(newTicket)
 
         } catch (error) {
@@ -134,7 +137,8 @@ export default {
       },
       async cancelEvent(id) {
         try {
-          await eventsService.cancel(id)
+          if (await Pop.confirm())
+            await eventsService.cancel(id)
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, "error message")

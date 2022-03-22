@@ -12,15 +12,16 @@
       </div>
     </div>
     <div class="row p-2">
-      <div class="col-md-12 bg-dark border">
+      <div class="col-md-12 text-wrap bg-dark border">
         <div class="d-flex text-center justify-content-between">
           <h3 class="selectable" @click="getAll">All</h3>
-          <h3 class="selectable" @click="filterEvents('expos')">Expos</h3>
+
           <h3 class="selectable" @click="filterEvents('convention')">
             Convention
           </h3>
-          <h3 class="selectable" @click="filterEvents('exhibit')">Exhibits</h3>
+
           <h3 class="selectable" @click="filterEvents('sport')">Sports</h3>
+
           <h3 class="selectable" @click="filterEvents('digital')">Digital</h3>
           <h3 class="selectable" @click="filterEvents('concert')">Concerts</h3>
         </div>
