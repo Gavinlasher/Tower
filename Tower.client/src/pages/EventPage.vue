@@ -85,27 +85,40 @@ import { eventsService } from "../services/EventsService"
 import { AppState } from "../AppState"
 import { ticketsService } from '../services/TicketsService'
 import { notesService } from '../services/NotesSevice'
+import { accountService } from "../services/AccountService"
 export default {
   setup() {
 
     const route = useRoute()
     const editable = ref({})
-    if (AppState.ActiveEvent.id == AppState.ActiveEvent.id) {
 
-      watchEffect(async () => {
-        try {
-          if (route.name = 'Event') {
+
+
+
+    watchEffect(async () => {
+      try {
+        if (route.name = 'Event') {
+          if (route.params.id !== undefined) {
+
             await eventsService.getActiveEvent(route.params.id)
+
+
             await ticketsService.getAllTickets(route.params.id)
             await notesService.getAllNotes(route.params.id)
+            await accountService.getMyTickets()
 
           }
-        } catch (error) {
-          logger.error(error)
-          Pop.toast(error.message, 'error message')
+
         }
-      })
-    }
+      } catch (error) {
+        logger.error(error)
+        Pop.toast(error.message, 'error message')
+      }
+
+    })
+
+
+
 
     return {
       editable,
@@ -147,8 +160,9 @@ export default {
       coverImg: computed(() => `url('${AppState.ActiveEvent.coverImg}')`),
       ticket: computed(() => AppState.ticket),
       capacity: computed(() => AppState.events),
-      haveTicket: computed(() => AppState.ticket.find(t => t.eventId == AppState.ActiveEvent.id)),
-      notes: computed(() => AppState.notes)
+      haveTicket: computed(() => AppState.myTickets.find(t => t.eventId == AppState.ActiveEvent.id)),
+      notes: computed(() => AppState.notes),
+
     }
   }
 }
